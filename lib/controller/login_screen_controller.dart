@@ -1,17 +1,39 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sports_event_booking_app/utils/app_utils.dart';
+import 'package:sports_event_booking_app/view/bottom_navigation_bar/bottom_navigation_bar.dart';
 
 class LoginScreenController extends ChangeNotifier {
   Future<void> onLogin(
-      {required String email, required String password}) async {
+      {required String email,
+      required String password,
+      required BuildContext context}) async {
     try {
       final credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+      log(credential.user?.email.toString() ?? "no data");
+      AppUtils.showOnetimeSnackbar(
+          context: context, bg: Colors.green, message: "login successfull");
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => BottomNavbarScreen(),
+        ),
+        (route) => false,
+      );
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+      if (e.code == 'invalid-email') {
+        AppUtils.showOnetimeSnackbar(
+            context: context,
+            bg: Colors.red,
+            message: 'No user found for that email.');
+      } else if (e.code == 'invalid-credential') {
+        AppUtils.showOnetimeSnackbar(
+            context: context,
+            bg: Colors.red,
+            message: 'Wrong password provided for that user.');
       }
     }
   }

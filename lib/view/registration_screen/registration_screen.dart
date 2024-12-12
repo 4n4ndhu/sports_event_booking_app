@@ -46,13 +46,13 @@ class RegistrationScreen extends StatelessWidget {
                       ),
                     ),
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Please enter your email";
-                      } else if (!RegExp(r'^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}\$')
-                          .hasMatch(value)) {
-                        return "Please enter a valid email address";
+                      String pattern =
+                          r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+                      if (value != null && RegExp(pattern).hasMatch(value)) {
+                        return null;
+                      } else {
+                        return "Enter a valid email";
                       }
-                      return null;
                     },
                   ),
                   SizedBox(height: 20),
@@ -105,6 +105,7 @@ class RegistrationScreen extends StatelessWidget {
                         context
                             .read<RegistrationScreenController>()
                             .onRegistration(
+                                context: context,
                                 email: emailController.text,
                                 password: passController.text);
                       }

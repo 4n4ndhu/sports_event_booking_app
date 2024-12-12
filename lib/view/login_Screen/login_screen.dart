@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sports_event_booking_app/controller/login_screen_controller.dart';
+import 'package:sports_event_booking_app/main.dart';
 import 'package:sports_event_booking_app/utils/color_constans.dart';
+import 'package:sports_event_booking_app/view/bottom_navigation_bar/bottom_navigation_bar.dart';
+import 'package:sports_event_booking_app/view/home_screen/home_screen.dart';
 import 'package:sports_event_booking_app/view/registration_screen/registration_screen.dart';
 import 'package:sports_event_booking_app/widgets/custom_buttons.dart';
 
@@ -41,13 +46,13 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Please enter your email";
-                    } else if (!RegExp(r'^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}\$')
-                        .hasMatch(value)) {
-                      return "Please enter a valid email address";
+                    String pattern =
+                        r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+                    if (value != null && RegExp(pattern).hasMatch(value)) {
+                      return null;
+                    } else {
+                      return "Enter a valid email";
                     }
-                    return null;
                   },
                 ),
                 SizedBox(height: 20),
@@ -77,9 +82,17 @@ class LoginScreen extends StatelessWidget {
                   text: "Login",
                   onPressedButton: () {
                     if (_formKey.currentState!.validate()) {
-                      // Proceed with login logic
-                      print("Email: ${emailController.text}");
-                      print("Password: ${passController.text}");
+                      context.read<LoginScreenController>().onLogin(
+                          email: emailController.text,
+                          password: passController.text,
+                          context: context);
+                      // Navigator.pushAndRemoveUntil(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => BottomNavbarScreen(),
+                      //   ),
+                      //   (route) => false,
+                      // );
                     }
                   },
                 ),
