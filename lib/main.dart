@@ -1,5 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sports_event_booking_app/controller/login_screen_controller.dart';
+import 'package:sports_event_booking_app/controller/registration_screen_controller.dart';
 import 'package:sports_event_booking_app/firebase_options.dart';
 import 'package:sports_event_booking_app/utils/app_theme.dart';
 import 'package:sports_event_booking_app/view/corousal_screen/corousal_screen.dart';
@@ -19,11 +22,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      themeMode: ThemeMode.system,
-      theme: AppTheme.darkTheme,
-      darkTheme: AppTheme.lightTheme,
-      home: CorousalScreen(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => LoginScreenController(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => RegistrationScreenController(),
+        )
+      ],
+      child: MaterialApp(
+        themeMode: ThemeMode.system,
+        theme: AppTheme.darkTheme,
+        darkTheme: AppTheme.lightTheme,
+        home: CorousalScreen(),
+      ),
     );
   }
 }
