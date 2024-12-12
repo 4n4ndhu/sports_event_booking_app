@@ -10,6 +10,36 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, String>> sportsEvents = [
+      {
+        'image':
+            'https://via.placeholder.com/150', // Replace with your sports image URL
+        'name': 'Football',
+        'time': '5:00 PM',
+        'location': 'Central Park',
+      },
+      {
+        'image':
+            'https://via.placeholder.com/150', // Replace with your sports image URL
+        'name': 'Basketball',
+        'time': '7:00 PM',
+        'location': 'Community Center',
+      },
+      {
+        'image':
+            'https://via.placeholder.com/150', // Replace with your sports image URL
+        'name': 'Tennis',
+        'time': '3:00 PM',
+        'location': 'Sports Complex',
+      },
+      {
+        'image':
+            'https://via.placeholder.com/150', // Replace with your sports image URL
+        'name': 'Cricket',
+        'time': '1:00 PM',
+        'location': 'City Stadium',
+      },
+    ];
     return Scaffold(
       appBar: AppBar(
         leading: Builder(builder: (context) {
@@ -116,8 +146,79 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Center(
-        child: Text("home"),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView.builder(
+          itemCount: sportsEvents.length,
+          itemBuilder: (context, index) {
+            final event = sportsEvents[index];
+            return Card(
+              elevation: 4,
+              margin: const EdgeInsets.symmetric(vertical: 8),
+              child: Stack(
+                children: [
+                  // Event Details
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Image
+                      ClipRRect(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(8),
+                        ),
+                        child: Image.network(
+                          event['image']!,
+                          height: 150,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              event['name']!,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text("Time: ${event['time']}"),
+                            const SizedBox(height: 4),
+                            Text("Location: ${event['location']}"),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  // Book Button
+                  Positioned(
+                    bottom: 10,
+                    right: 10,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Handle book action
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Booking ${event['name']}')),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: Text("Book"),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sports_event_booking_app/view/home_screen/home_screen.dart';
+import 'package:sports_event_booking_app/view/profile_section/profile_screen.dart';
 
 class BottomNavbarScreen extends StatefulWidget {
   const BottomNavbarScreen({super.key});
@@ -14,9 +15,7 @@ class _BottomNavbarScreenState extends State<BottomNavbarScreen> {
     Container(
       color: Colors.red,
     ),
-    Container(
-      color: Colors.blue,
-    )
+    ProfileScreen()
   ];
   int selected = 0;
   @override
@@ -48,13 +47,14 @@ class _BottomNavbarScreenState extends State<BottomNavbarScreen> {
               ),
               label: "Home"),
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.bookmark_outline,
-              ),
-              activeIcon: Icon(
-                Icons.bookmark,
-              ),
-              label: "saved"),
+            icon: Icon(
+              Icons.add,
+            ),
+            activeIcon: Icon(
+              Icons.add,
+            ),
+            label: "add",
+          ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.person_outline,
