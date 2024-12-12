@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1045066719761",
+    "project_id": "event-booking-app-ead70",
+    "storage_bucket": "event-booking-app-ead70.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1045066719761:android:d1cb4c73a33acc256587b0",
+        "android_client_info": {
+          "package_name": "com.example.sports_event_booking_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-eMrjFD5e_qBElGl_Rmrum3way3hS-ZY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

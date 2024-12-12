@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sports_event_booking_app/utils/color_constans.dart';
+import 'package:sports_event_booking_app/view/login_Screen/login_screen.dart';
 import 'package:sports_event_booking_app/view/splash_screen/splash_screen.dart';
 
 class CorousalScreen extends StatefulWidget {
@@ -65,27 +67,43 @@ class _CorousalScreenState extends State<CorousalScreen> {
             child: SizedBox(
               height: 50,
               width: 50,
-              child: ElevatedButton(
-                onPressed: () {
-                  if (_currentIndex == myImages.length - 1) {
-                    // Navigate to HomeScreen on the last page
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => splashScreen()),
-                    );
-                  } else {
-                    // Move to the next page manually
-                    _pageController.nextPage(
-                      duration: Duration(milliseconds: 300),
-                      curve: Curves.slowMiddle,
-                    );
-                  }
-                },
-                child: Text(
-                  _currentIndex == myImages.length - 1 ? "Get Started" : "skip",
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ),
+              child: _currentIndex == myImages.length - 2 ||
+                      _currentIndex == myImages.length - 3
+                  ? TextButton(
+                      onPressed: () {
+                        _pageController.nextPage(
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.slowMiddle,
+                        );
+                      },
+                      child: Text(
+                        "skip",
+                        style: TextStyle(color: ColorConstans.primaryGreen),
+                      ))
+                  : ElevatedButton(
+                      onPressed: () {
+                        if (_currentIndex == myImages.length - 1) {
+                          // Navigate to HomeScreen on the last page
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen()),
+                          );
+                        } else {
+                          // Move to the next page manually
+                          _pageController.nextPage(
+                            duration: Duration(milliseconds: 300),
+                            curve: Curves.slowMiddle,
+                          );
+                        }
+                      },
+                      child: Text(
+                        _currentIndex == myImages.length - 1
+                            ? "Get Started"
+                            : "skip",
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ),
             ),
           ),
         ],
